@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :password_digest, presence: true
   validates :token, uniqueness: true
+
+  has_many :items
 end
