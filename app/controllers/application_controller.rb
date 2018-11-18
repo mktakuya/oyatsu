@@ -12,6 +12,8 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find_by(token: request.headers['Authorization'].split[1])
+    authenticate_or_request_with_http_token do |token, options|
+      @current_user = User.find_by(token: token)
+    end
   end
 end
