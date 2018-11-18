@@ -11,6 +11,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    @item.user = current_user
 
     if @item.save
       render json: @item, status: 201
