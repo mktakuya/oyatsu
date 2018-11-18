@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         post 'sign_in'
         get 'me'
       end
+      resources :items
     end
   end
 end
