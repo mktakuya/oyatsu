@@ -9,6 +9,11 @@ Rails.application.routes.draw do
           get 'me'
         end
       end
+      resource :account, only: [ :update ] do
+        collection do
+          patch :password
+        end
+      end
       resources :items
     end
   end
