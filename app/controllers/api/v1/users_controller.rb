@@ -5,9 +5,9 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user
+      render json: @user, status: 201
     else
-      render json: { errors: @user.errors.full_messages }
+      render json: { errors: @user.errors.full_messages }, status: 400
     end
   end
 
@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find_by(email: params[:email])
 
     if @user && @user.authenticate(params[:password])
-      render json: @user, serializer: UserWithTokenSerializer
+      render json: @user, serializer: UserWithTokenSerializer, status: 200
     else
       render json: { errors: ['ログインに失敗しました'] }, status: 401
     end
