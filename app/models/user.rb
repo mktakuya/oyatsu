@@ -7,11 +7,18 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: true
   validates :name, presence: true
-  validates :password, length: { in: 8..128 }
+  validates :password, length: { in: 8..128 }, if: -> { password.present? }
   validates :password_digest, presence: true
   validates :token, uniqueness: true
 
   has_many :items
+
+  def update_without_password(params = {})
+    params.delete(:password)
+    params.delete(:password_confirmation)
+
+    self.update_attributes(params)
+  end
 
   private
 
