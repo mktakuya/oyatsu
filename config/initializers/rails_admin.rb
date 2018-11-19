@@ -16,4 +16,10 @@ RailsAdmin.config do |config|
     delete
     show_in_app
   end
+
+  config.model User do
+    include_fields_if do
+      not name.match /_at$|^password.*|.*token$/
+    end
+  end
 end
